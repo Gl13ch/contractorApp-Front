@@ -1,64 +1,79 @@
-
-import React, { useState } from 'react'; 
+import React from 'react'; 
 import axios from 'axios'; 
 import './App.css';
 
-  
 class App extends React.Component { 
-
+    // "state" should probably be called what it is so testData or blankTest. Ultimately it will be called blankJob probably.
     state = { 
-        details : [], 
-        name: "",
-        number: ""
-    } 
+      details : [], 
+      name: "",
+      number: "",
+    }
     
-    componentDidMount() { 
-  
-        let data ; 
-  
-        axios.get('http://localhost:8000/testing/') 
-        .then(res => { 
-            data = res.data; 
-            this.setState({ 
-                details : data     
-            }); 
-        }) 
-        .catch(err => {}) 
+    componentDidMount() {
+      let data ; 
+      axios.get('http://localhost:8000/testing/') 
+      .then(res => { 
+        data = res.data; 
+        this.setState({ 
+            details : data     
+        });
+      }) 
+      .catch(err => {}) 
     } 
 
     handleInput = (e) => { 
       this.setState({ 
-          [e.target.name]: e.target.value, 
+        [e.target.name]: e.target.value, 
       }); 
-  }
-
-    handleSubmit = (e) => {
-      e.preventDefault();
-      let data ; 
-
-      axios
-        .post("http://localhost:8000/testing/", { 
-          name: this.state.name, 
-          number: this.state.number, 
-        })
-        .then((res) => { 
-          this.setState({ 
-            name: "", 
-            number: "", 
-          }); 
-        }) 
-        .catch((err) => {})
-
-        //get data to reflect updated database
-        axios.get('http://localhost:8000/testing/') 
-        .then(res => { 
-            data = res.data; 
-            this.setState({ 
-                details : data     
-            }); 
-        }) 
-        .catch(err => {}) 
     }
+
+    // as a best practice I would probably put axios.post in its own function then just call it in the handle submit
+
+    // EXAMPLE:
+    // handleCreateTest = (newTest) => {
+    //   axios.post("http://localhost:8000/testing/", newTest)
+    //   .then((res) => { 
+    //     this.componentDidMount(); 
+    //   })
+    //   .catch((err) => {})
+    // }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    // Then call here:
+    // this.handleCreateTest(this.state)
+    // this.setState({ 
+    //         name: "", 
+    //         number: "", 
+    //       });
+
+    //If you uncomment above, then comment out below
+    let data ; 
+
+    axios.post("http://localhost:8000/testing/", { 
+      name: this.state.name, 
+      number: this.state.number, 
+    })
+    .then((res) => { 
+      this.setState({ 
+        name: "", 
+        number: "", 
+      }); 
+    }) 
+    .catch((err) => {})
+
+    // get data to reflect updated database
+    axios.get('http://localhost:8000/testing/') 
+    .then(res => { 
+      data = res.data; 
+      this.setState({ 
+            details : data     
+      }); 
+    }) 
+    .catch(err => {}) 
+    //TO HERE
+  }
   
   render() { 
     return( 
@@ -84,8 +99,8 @@ class App extends React.Component {
           )} 
         </div>
       </div> 
-      ); 
+    ); 
   } 
 } 
-  
+// Looks good, just make sure your spacing is correct. I fixed a good amount of it.
 export default App;
