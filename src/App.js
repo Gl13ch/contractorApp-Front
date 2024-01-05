@@ -5,7 +5,7 @@ import './App.css';
 class App extends React.Component { 
   // Eventually some of the components on this page are going to move. We probably ultimately just want routes in the return.
 
-    // "state" should probably be called what it is so testData or blankTest. Ultimately it will be called blankJob probably.
+    // "state" should probably be called what it is so testData or blankTest. Ultimately it will probably be called blankJob.
     state = { 
       details : [], 
       name: "",
