@@ -28,13 +28,13 @@ const App = () => {
     .then((res) => { 
       getJobs();
     })
-    .catch((err) => {})
+    .catch((err) => {});
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleCreateJob(jobDetails);
-    setJobs(blankJob);
+    setJobDetails(blankJob);
   }
 
   useEffect(() => {
@@ -54,11 +54,11 @@ const App = () => {
       </div>
 
       <div>
-        {jobs.map((jobDetails, id) =>  ( 
-          <div key={id} class="test">
-            name:{jobDetails.name}
+        {jobs.map((job, id) =>  ( 
+          <div key={job.number} class="test">
+            name:{job.name}
             <br/>
-            number:{jobDetails.number}
+            number:{job.number}
           </div>
           )
         )} 
