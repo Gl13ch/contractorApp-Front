@@ -1,89 +1,59 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-class Login extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            username: "",
-            password: "",
-            errorMsg: "",
-            toggleLogin: true,
-            toggleError: false,
-            toggleLogout: false,
-            currUser: {},
-        }
+const Login = () => {
+    const [toggleError, setToggleError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
+    const [currUser, setCurrUser] = useState({});
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    
+    const handleLogin = (userObj) => {
+        axios.put('http://localhost:8000/users/login', userObj)
+        .then((res) =>{
+            if (res.data.username) {
+                console.log('success');
+                setToggleError(false);
+                setErrorMsg('');
+                setCurrUser(res.data);
+            } else {
+                console.log('error', res.data);
+                setErrorMsg(res.data);
+                setToggleError(true);
+            }
+        })     
     };
 
-    handleInputChange(e){
-        e.preventDefault();
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+    const loginRequest = (event) => {
+        event.preventDefault();
+        let userCredentials = {
+            username: username,
+            password: password
+        }
+        handleLogin(userCredentials);
     }
 
-    // handleLogin = (userObj) => {
-    //     axios.put('http://localhost:8000/users/login',
-    //     {
-    //         username:userObj.username,
-    //         password:userObj.password,
-    //     })
-    //     .then((res) => {
-    //         if(res.data.username){
-    //             // only shows up upon successful login
-    //             console.log('signed in');
-    //             this.state({
-    //                 toggleError: false,
-    //                 errorMsg: "",
-    //                 currUser: (res.data),
-    //             })
-    //             this.handleToggleLogout();
-    //         } else {
-    //             console.log('signup error', res);
-    //             this.state({
-    //                 toggleError: true,
-    //                 errorMsg: res.data.error,
-    //             })
-    //         }
-    //     });
-    // };
-
-    // handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     let userCredentials = {
-    //         username: this.state.username,
-    //         password: this.state.password,
-    //     };
-    //     this.handleLogin(userCredentials)
-    // }
-
-    // handleUsernameChange = (e) => {
-    //     this.setState({ 
-    //         [e.target.username]: e.target.value, 
-    //     });
-    // }
-
-    // handlePasswordChange = (e) => {
-    //     this.setState({ 
-    //         [e.target.password]: e.target.value, 
-    //     });
-    // }
-
-    render() {
-        return(
-            <div>
-                <h1>Login</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor='username'>Username: </label>
-                    <input type='text' name='username' onChange={this.handleUsernameChange}/>
-                    <label htmlFor='password'>Password: </label>
-                    <input type='password' name='password' onChange={this.handlePasswordChange}/>
-                    <input type='submit'/>
-                    {this.toggleError && <h5>{this.errorMsg}</h5>}
-                </form>
-            </div>
-        );
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value);
     }
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
+
+    return (
+        <div>
+            <h1>Login</h1>
+            <form onSubmit={loginRequest}>
+                <label htmlFor='username'>Username: </label>
+                <input type='text' name='username' onChange={handleUsernameChange}/>
+                <label htmlFor='password'>Password: </label>
+                <input type='password' name='password' onChange={handlePasswordChange}/>
+                <input type='submit'/>
+                {toggleError && <h5>{errorMsg}</h5>}
+            </form>
+        </div>
+    )
 }
 
-export default Login
+export default Login;

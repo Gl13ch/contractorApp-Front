@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react'; 
 import axios from 'axios';
 import './App.css';
+import Signup from './components/Signup.js';
+import Login from './components/Login.js';
 
 const App = () => {
   let [jobs, setJobs] = useState([]);
@@ -60,7 +62,9 @@ const App = () => {
           <input type="submit"/>
         </form>
       </div>
-
+      <Signup/>
+      <Login/>
+      <br />
       <div>
         {jobs.map((job, id) =>  ( 
           <div key={job.id} class="test">
