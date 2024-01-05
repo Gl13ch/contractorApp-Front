@@ -3,13 +3,32 @@ import axios from 'axios';
 import './App.css';
 
 class App extends React.Component { 
+  // Eventually some of the components on this page are going to move. We probably ultimately just want routes in the return.
+
     // "state" should probably be called what it is so testData or blankTest. Ultimately it will be called blankJob probably.
     state = { 
       details : [], 
       name: "",
       number: "",
     }
-    
+
+    //I know I did this part, but I would redo it like:
+    // getTests() {
+    //   let data ;
+    //   axios.get('http://localhost:8000/testing/') 
+    //   .then(res => { 
+    //     data = res.data; 
+    //     this.setState({ 
+    //         details : data     
+    //     });
+    //   }) 
+    //   .catch(err => {})
+    // }
+
+    // componentDidMount() {
+    //    this.getTests()
+    // }
+
     componentDidMount() {
       let data ; 
       axios.get('http://localhost:8000/testing/') 
@@ -34,7 +53,8 @@ class App extends React.Component {
     // handleCreateTest = (newTest) => {
     //   axios.post("http://localhost:8000/testing/", newTest)
     //   .then((res) => { 
-    //     this.componentDidMount(); 
+    //     this.componentDidMount();
+    //     OR IF EARLIER CODE CHANGED: this.getTests();
     //   })
     //   .catch((err) => {})
     // }
@@ -47,7 +67,6 @@ class App extends React.Component {
     //         name: "", 
     //         number: "", 
     //       });
-
     //If you uncomment above, then comment out below
     let data ; 
 
