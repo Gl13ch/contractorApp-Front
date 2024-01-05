@@ -37,6 +37,14 @@ const App = () => {
     setJobDetails(blankJob);
   }
 
+  const deleteJob = (event) => {
+    axios.delete(`http://localhost:8000/testing/${event.target.value}`)//,{data:{id:{event.target.value}}})
+    .then((res) => { 
+      getJobs();
+    })
+    .catch((err) => {});
+  }
+
   useEffect(() => {
     getJobs();
   }, []);
@@ -55,7 +63,9 @@ const App = () => {
 
       <div>
         {jobs.map((job, id) =>  ( 
-          <div key={job.number} class="test">
+          <div key={job.id} class="test">
+            <button value={job.id} onClick={deleteJob}>Delete</button>
+            <br/>
             name:{job.name}
             <br/>
             number:{job.number}
