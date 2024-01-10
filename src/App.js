@@ -1,18 +1,33 @@
 import {useState, useEffect} from 'react'; 
+//import { Modal } from 'bootstrap';
+import Modal from 'react-bootstrap/Modal';
+
 import axios from 'axios';
 import './App.css';
 import Signup from './components/Signup.js';
 import Login from './components/Login.js';
 
+
 const App = () => {
   let [jobs, setJobs] = useState([]);
+
+  const [editVisibility, setEditVisibility] = useState(false);
+  const handleHideEdit = () => setEditVisibility(false);
+  const handleShowEdit = () => setEditVisibility(true);
   
   const blankJob = {
     name: "",
     number: "",
   }
 
+  const blankEdit = {
+    name: "",
+    number: "",
+    id: ""
+  }
+
   const [jobDetails, setJobDetails] = useState(blankJob);
+  const [jobEdit, setJobEdit] = useState(blankEdit)
 
   const getJobs = () => {
     axios.get('http://localhost:8000/testing/')
@@ -23,6 +38,10 @@ const App = () => {
 
   const handleInput = (e) => {
     setJobDetails({...jobDetails, [e.target.name]:e.target.value})
+  }
+
+  const handleEditInput = (e) => {
+    setJobEdit({...jobEdit, [e.target.name]:e.target.value})
   }
 
   const handleCreateJob = (newJob) => {
@@ -39,7 +58,7 @@ const App = () => {
     setJobDetails(blankJob);
   }
 
-  const deleteJob = (event) => {
+  const handleDeleteJob = (event) => {
     axios.delete(`http://localhost:8000/testing/${event.target.value}`)//,{data:{id:{event.target.value}}})
     .then((res) => { 
       getJobs();
@@ -47,17 +66,37 @@ const App = () => {
     .catch((err) => {});
   }
 
+  const handleEditJob = (event) => {
+    console.log("edit start")
+    axios.put(`http://localhost:8000/testing/${jobEdit.id}`,{
+      //document.getElementById("")
+      [event.target.name]: event.target.value
+    })
+    .then ((res) => {
+      getJobs();
+    })
+    .catch((err) => {});
+    console.log("edit end")
+    handleHideEdit();
+  }
+
+  const openEditForm = (event) => {
+    let val = document.getElementsByClassName("form-popup").value
+  }
+
+
   useEffect(() => {
     getJobs();
   }, []);
 
+//<button value={job.id} onClick={handleEditJob}>Edit</button>
   return (
     <div>
       <div>
         <form onSubmit={handleSubmit}>
-          <label for="name"><input type="text" placeholder="Name" id="name" value={jobDetails.name} name="name" onChange={handleInput} required/></label>
+          <label htmlFor="name"><input type="text" placeholder="Name" id="name" value={jobDetails.name} name="name" onChange={handleInput} required/></label>
           <br></br>
-          <label for="number"><input type="text" placeholder="Number" id="number" value={jobDetails.number} name="number" onChange={handleInput} required/></label>
+          <label htmlFor="number"><input type="text" placeholder="Number" id="number" value={jobDetails.number} name="number" onChange={handleInput} required/></label>
           <br></br>
           <input type="submit"/>
         </form>
@@ -67,16 +106,32 @@ const App = () => {
       <br />
       <div>
         {jobs.map((job, id) =>  ( 
-          <div key={job.id} class="test">
-            <button value={job.id} onClick={deleteJob}>Delete</button>
+        <div key={job.id} className="test">
+            <button value={job.id} onClick={handleDeleteJob}>Delete</button> <button id="toggle_button" value={false} onClick={handleShowEdit}>Edit</button>
             <br/>
-            name:{job.name}
+            <p>name:{job.name}</p>
             <br/>
-            number:{job.number}
+            <p>number:{job.number}</p>
           </div>
           )
-        )} 
+        )}
       </div>
+      <Modal show={editVisibility} onClick={handleShowEdit}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Job</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form className='form-popup' onSubmit={handleEditJob}>
+            <label>name:<input type="text" name='name' value={jobEdit.name} onChange={handleEditInput}/></label>
+            <br/>
+            <label>number:<input type="text" name='number' value={jobEdit.number} onChange={handleEditInput} /></label>
+            <br/>
+            <input type="submit" value="Edit"/>
+          </form>
+        </Modal.Body>
+
+          <button onClick={handleHideEdit}>Close</button>
+      </Modal>
     </div>
   );
 };
