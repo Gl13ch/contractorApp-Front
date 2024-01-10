@@ -1,13 +1,15 @@
-import {useState, useEffect} from 'react';
-import axios from 'axios';
+import {useState} from 'react';
+import axios from 'axios'; //won't need this when moving handleLogin to app.js
 
 const Login = () => {
+    //toggleError and errorMsg will go on app.js
     const [toggleError, setToggleError] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const [currUser, setCurrUser] = useState({});
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
+    // handleLogin() will go on app.js
     const handleLogin = (userObj) => {
         axios.put('http://localhost:8000/users/login', userObj)
         .then((res) =>{
