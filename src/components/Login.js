@@ -1,42 +1,21 @@
 import {useState} from 'react';
-import axios from 'axios'; //won't need this when moving handleLogin to app.js
 
-const Login = () => {
-    //toggleError and errorMsg will go on app.js
-    const [toggleError, setToggleError] = useState(false);
-    const [errorMsg, setErrorMsg] = useState('');
+const Login = ({handleLogin, toggleError, errorMsg}) => {
     const [currUser, setCurrUser] = useState({});
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
-    // handleLogin() will go on app.js
-    const handleLogin = (userObj) => {
-        axios.put('http://localhost:8000/users/login', userObj)
-        .then((res) =>{
-            if (res.data.username) {
-                console.log('success');
-                setToggleError(false);
-                setErrorMsg('');
-                setCurrUser(res.data);
-            } else {
-                console.log('error', res.data);
-                setErrorMsg(res.data);
-                setToggleError(true);
-            }
-        })     
-    };
 
     const loginRequest = (event) => {
         event.preventDefault();
         let userCredentials = {
-            username: username,
+            email: email,
             password: password
         }
         handleLogin(userCredentials);
     }
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
     }
 
     const handlePasswordChange = (event) => {
@@ -47,8 +26,8 @@ const Login = () => {
         <div>
             <h1>Login</h1>
             <form onSubmit={loginRequest}>
-                <label htmlFor='username'>Username: </label>
-                <input type='text' name='username' onChange={handleUsernameChange}/>
+                <label htmlFor='email'>Email: </label>
+                <input type='text' name='email' onChange={handleEmailChange}/>
                 <label htmlFor='password'>Password: </label>
                 <input type='password' name='password' onChange={handlePasswordChange}/>
                 <input type='submit'/>

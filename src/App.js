@@ -1,97 +1,143 @@
 import {useState, useEffect} from 'react'; 
-//import { Modal } from 'bootstrap';
-import Modal from 'react-bootstrap/Modal';
-
+// import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import {BrowserRouter} from 'react-router-dom';
 import './App.css';
+import Header from './components/Header.js';
 import Signup from './components/Signup.js';
 import Login from './components/Login.js';
 
-
 const App = () => {
-  let [jobs, setJobs] = useState([]);
+	const [currUser, setCurrUser] = useState({});
+	const [toggleError, setToggleError] = useState(false);
+	const [errorMsg, setErrorMsg] = useState('');
 
-  const [editVisibility, setEditVisibility] = useState(false);
-  const handleHideEdit = () => setEditVisibility(false);
-  const handleShowEdit = () => setEditVisibility(true);
+	const handleSignup = (newUserObj) => {
+		axios.post('http://localhost:8000/users/', newUserObj)
+		.then((res) => {
+			if (res.data.email) {
+				console.log('success');
+				setToggleError(false);
+				setErrorMsg('');
+				setCurrUser(res.data);
+			} else {
+				console.log('signup error\n', res.data);
+				setErrorMsg(res.data);
+				setToggleError(true);
+			}
+		}).catch(error =>{
+			console.log(error);
+		});
+	};
+
+	const handleLogin = (userObj) => {
+		axios.put('http://localhost:8000/users/login', userObj)
+		.then((res) =>{
+			if (res.data.email) {
+				console.log('success');
+				setToggleError(false);
+				setErrorMsg('');
+				setCurrUser(res.data);
+			} else {
+				console.log('error', res.data);
+				setErrorMsg(res.data);
+				setToggleError(true);
+			}
+		})     
+	};
+
+////////////////////////////////////////////////////
+//   let [jobs, setJobs] = useState([]);
+
+//   const [editVisibility, setEditVisibility] = useState(false);
+//   const handleHideEdit = () => setEditVisibility(false);
+//   const handleShowEdit = () => setEditVisibility(true);
   
-  const blankJob = {
-    name: "",
-    number: "",
-  }
+//   const blankJob = {
+//     name: "",
+//     number: "",
+//   };
 
-  const blankEdit = {
-    name: "",
-    number: "",
-    id: ""
-  }
+//   const blankEdit = {
+//     name: "",
+//     number: "",
+//     id: ""
+//   };
 
-  const [jobDetails, setJobDetails] = useState(blankJob);
-  const [jobEdit, setJobEdit] = useState(blankEdit)
+//   const [jobDetails, setJobDetails] = useState(blankJob);
+//   const [jobEdit, setJobEdit] = useState(blankEdit);
 
-  const getJobs = () => {
-    axios.get('http://localhost:8000/testing/')
-    .then((res) => {
-      setJobs(res.data);
-    });
-  };
+//   const getJobs = () => {
+//     axios.get('http://localhost:8000/testing/')
+//     .then((res) => {
+//       setJobs(res.data);
+//     });
+//   };
 
-  const handleInput = (e) => {
-    setJobDetails({...jobDetails, [e.target.name]:e.target.value})
-  }
+//   const handleInput = (e) => {
+//     setJobDetails({...jobDetails, [e.target.name]:e.target.value})
+//   };
 
-  const handleEditInput = (e) => {
-    setJobEdit({...jobEdit, [e.target.name]:e.target.value})
-  }
+//   const handleEditInput = (e) => {
+//     setJobEdit({...jobEdit, [e.target.name]:e.target.value})
+//   };
 
-  const handleCreateJob = (newJob) => {
-    axios.post("http://localhost:8000/testing/", newJob)
-    .then((res) => { 
-      getJobs();
-    })
-    .catch((err) => {});
-  }
+//   const handleCreateJob = (newJob) => {
+//     axios.post("http://localhost:8000/testing/", newJob)
+//     .then((res) => { 
+//       getJobs();
+//     })
+//     .catch((err) => {});
+//   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleCreateJob(jobDetails);
-    setJobDetails(blankJob);
-  }
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     handleCreateJob(jobDetails);
+//     setJobDetails(blankJob);
+//   };
 
-  const handleDeleteJob = (event) => {
-    axios.delete(`http://localhost:8000/testing/${event.target.value}`)//,{data:{id:{event.target.value}}})
-    .then((res) => { 
-      getJobs();
-    })
-    .catch((err) => {});
-  }
+//   const handleDeleteJob = (event) => {
+//     axios.delete(`http://localhost:8000/testing/${event.target.value}`)//,{data:{id:{event.target.value}}})
+//     .then((res) => { 
+//       getJobs();
+//     })
+//     .catch((err) => {});
+//   };
 
-  const handleEditJob = (event) => {
-    console.log("edit start")
-    axios.put(`http://localhost:8000/testing/${jobEdit.id}`,{
-      //document.getElementById("")
-      [event.target.name]: event.target.value
-    })
-    .then ((res) => {
-      getJobs();
-    })
-    .catch((err) => {});
-    console.log("edit end")
-    handleHideEdit();
-  }
+//   const handleEditJob = (event) => {
+//     console.log("edit start")
+//     axios.put(`http://localhost:8000/testing/${jobEdit.id}`,{
+//       //document.getElementById("")
+//       [event.target.name]: event.target.value
+//     })
+//     .then ((res) => {
+//       getJobs();
+//     })
+//     .catch((err) => {});
+//     console.log("edit end")
+//     handleHideEdit();
+//   };
 
-  const openEditForm = (event) => {
-    let val = document.getElementsByClassName("form-popup").value
-  }
+//   const openEditForm = (event) => {
+//     let val = document.getElementsByClassName("form-popup").value
+//   };
 
 
-  useEffect(() => {
-    getJobs();
-  }, []);
+//   useEffect(() => {
+//     getJobs();
+//   }, []);
 
-//<button value={job.id} onClick={handleEditJob}>Edit</button>
+// //<button value={job.id} onClick={handleEditJob}>Edit</button>
+////////////////////////////////////////////////////
   return (
+    <BrowserRouter>
+      <Header/>
+	  <Signup handleSignup={handleSignup}/>
+    <br />
+	  <Login handleLogin={handleLogin}/>
+    {/* 
     <div>
+      <Header/>
       <div>
         <form onSubmit={handleSubmit}>
           <label htmlFor="name"><input type="text" placeholder="Name" id="name" value={jobDetails.name} name="name" onChange={handleInput} required/></label>
@@ -129,12 +175,14 @@ const App = () => {
             <input type="submit" value="Edit"/>
           </form>
         </Modal.Body>
-
-          <button onClick={handleHideEdit}>Close</button>
+        <button onClick={handleHideEdit}>Close</button>
       </Modal>
-    </div>
+    </div> 
+    */}
+    </BrowserRouter>
   );
 };
+
 export default App;
 
 // class App extends React.Component {
