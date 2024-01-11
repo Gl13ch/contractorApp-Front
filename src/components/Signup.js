@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import axios from 'axios';
-import Address from '../components/Address.js'
 
 const Signup = ({handleSignup}) => {
     const [toggleError, setToggleError] = useState(false);
@@ -51,7 +50,6 @@ const Signup = ({handleSignup}) => {
                 <label htmlFor='phone'>Phone:</label>
                 <input type='phone' name='phone' onChange={handlePhoneChange}/>
                 <br />
-                <Address/>
                 <input type='submit'/>
             </form>
         </div>

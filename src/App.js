@@ -132,9 +132,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <Header/>
-	  <Signup handleSignup={handleSignup}/>
-    <br />
-	  <Login handleLogin={handleLogin}/>
+	    <Signup handleSignup={handleSignup}/>
+      <br />
+	    <Login handleLogin={handleLogin}/>
     {/* 
     <div>
       <Header/>
