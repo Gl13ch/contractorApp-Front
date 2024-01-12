@@ -2,9 +2,13 @@ const Home = () => {
     return(
         <div>    
             <div>
-                contact us
-                email:
-                phone:
+                <a id='contact_us'>
+                    contact us
+                    <br />
+                    email:
+                    <br />
+                    phone:
+                </a>
             </div>
         </div>
     );
