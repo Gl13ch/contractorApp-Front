@@ -321,3 +321,150 @@ export default App;
 // } 
 // // Looks good, just make sure your spacing is correct. I fixed a good amount of it.
 // export default App;
+
+
+
+
+/*
+
+
+import {useState, useEffect} from 'react'; 
+//import { Modal } from 'bootstrap';
+import Modal from 'react-bootstrap/Modal';
+
+import axios from 'axios';
+import './App.css';
+import Signup from './components/Signup.js';
+import Login from './components/Login.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const App = () => {
+  let [jobs, setJobs] = useState([]);
+
+  const [editVisibility, setEditVisibility] = useState(false);
+  const handleHideEdit = () => setEditVisibility(false);
+  const handleShowEdit = () => setEditVisibility(true);
+  
+  const blankJob = {
+    name: "",
+    number: "",
+  }
+
+  const blankEdit = {
+    name: "",
+    number: "",
+    id: ""
+  }
+
+  const [jobDetails, setJobDetails] = useState(blankJob);
+  const [jobEdit, setJobEdit] = useState(blankEdit)
+
+  const getJobs = () => {
+    axios.get('http://localhost:8000/testing/')
+    .then((res) => {
+      setJobs(res.data);
+    });
+  };
+
+  const handleInput = (e) => {
+    setJobDetails({...jobDetails, [e.target.name]:e.target.value})
+  }
+
+  const handleEditInput = (e) => {
+    setJobEdit({...jobEdit, [e.target.name]:e.target.value})
+  }
+
+  const handleCreateJob = (newJob) => {
+    axios.post("http://localhost:8000/testing/", newJob)
+    .then((res) => { 
+      getJobs();
+    })
+    .catch((err) => {});
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleCreateJob(jobDetails);
+    setJobDetails(blankJob);
+  }
+
+  const handleDeleteJob = (event) => {
+    axios.delete(`http://localhost:8000/testing/${event.target.value}`)//,{data:{id:{event.target.value}}})
+    .then((res) => { 
+      getJobs();
+    })
+    .catch((err) => {});
+  }
+
+  const handleEditJob = (event) => {
+    console.log("edit start")
+    axios.put(`http://localhost:8000/testing/${jobEdit.id}`,{
+      ['name']: jobEdit.name,
+      ['number']:jobEdit.number
+    })
+    .then ((res) => {
+    })
+    .catch((err) => {});
+    console.log("edit end")
+    handleHideEdit();
+  };
+
+  const handleCloseEdit = (e) => {
+    handleHideEdit();
+    setJobEdit(blankEdit);
+  };
+
+  useEffect(() => {
+    getJobs();
+  }, []);
+
+//<button value={job.id} onClick={handleEditJob}>Edit</button>
+  return (
+    <div>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name"><input type="text" placeholder="Name" id="name" value={jobDetails.name} name="name" onChange={handleInput} required/></label>
+          <br></br>
+          <label htmlFor="number"><input type="text" placeholder="Number" id="number" value={jobDetails.number} name="number" onChange={handleInput} required/></label>
+          <br></br>
+          <input type="submit"/>
+        </form>
+      </div>
+      <Signup/>
+      <Login/>
+      <br />
+      <div>
+        {jobs.map((job, id) =>  ( 
+        <div key={job.id} className="test">
+            <button value={job.id} name='id' onClick={handleDeleteJob}>Delete</button> <button id="toggle_button" value={false} onClick={async () => {
+              setJobEdit({...jobEdit, ['id']:job.id})
+              handleShowEdit()
+            }}>Edit</button>
+            <p>name:{job.name} <br></br>
+            number:{job.number}</p>
+          </div>
+          )
+        )}
+      </div>
+      <Modal show={editVisibility} onHide={handleCloseEdit}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Job</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form className='form-popup' onSubmit={handleEditJob}>
+            <label>name:<input type="text" name='name' value={jobEdit.name} onChange={handleEditInput}/></label>
+            <br/>
+            <label>number:<input type="text" name='number' value={jobEdit.number} onChange={handleEditInput} /></label>
+            <br/>
+            <input type="submit" value="Edit"/>
+          </form>
+        </Modal.Body>
+      </Modal>
+    </div>
+  );
+};
+export default App;
+
+
+
+*/
