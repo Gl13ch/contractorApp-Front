@@ -29,10 +29,6 @@ const Signup = ({handleSignup}) => {
         setPassword(event.target.value);
     };
 
-    const handleAddressChange = (e) => {
-        setAddress(e.target.value);
-    };
-
     const handlePhoneChange = (e) => {
         setPhone(e.target.value);
     };

@@ -4,12 +4,15 @@ const Login = ({handleLogin, toggleError, errorMsg}) => {
     const [currUser, setCurrUser] = useState({});
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
+
 
     const loginRequest = (event) => {
         event.preventDefault();
         let userCredentials = {
             email: email,
-            password: password
+            password: password,
+            phone: phone
         }
         handleLogin(userCredentials);
     }

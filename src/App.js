@@ -11,6 +11,14 @@ const App = () => {
 	const [currUser, setCurrUser] = useState({});
 	const [toggleError, setToggleError] = useState(false);
 	const [errorMsg, setErrorMsg] = useState('');
+  const [jobs, setJobs] = useState([])
+
+  const getJobs = () => {
+    axios.get('http://localhost:8000/job/')
+    .then((res) => {
+      setJobs(res.data)
+    })
+  };
 
 	const handleSignup = (newUserObj) => {
 		axios.post('http://localhost:8000/users/', newUserObj)
@@ -45,6 +53,11 @@ const App = () => {
 			}
 		})     
 	};
+
+  const handleLogout = () => {
+    setCurrUser({});
+    console.log(currUser);
+  };
 
 ////////////////////////////////////////////////////
 //   let [jobs, setJobs] = useState([]);
@@ -135,6 +148,7 @@ const App = () => {
 	    <Signup handleSignup={handleSignup}/>
       <br />
 	    <Login handleLogin={handleLogin}/>
+      <button onClick={handleLogout}>Logout</button>
     {/* 
     <div>
       <Header/>
