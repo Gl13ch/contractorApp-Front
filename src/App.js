@@ -14,6 +14,8 @@ const App = () => {
 	const [errorMsg, setErrorMsg] = useState('');
   let [jobs, setJobs] = useState([]);
   const [editVisibility, setEditVisibility] = useState(false);
+  const [toggleLogout, setToggleLogout] = useState(false);
+  const [toggleLogin, setToggleLogin] = useState(true);
   const handleHideEdit = () => setEditVisibility(false);
   const handleShowEdit = () => setEditVisibility(true);
   
@@ -123,6 +125,23 @@ const App = () => {
   const handleLogout = () => {
     setCurrUser({});
     console.log(currUser);
+    handleToggleLogout();
+  };
+
+  const handleToggleLogout = () => {
+    if (toggleLogout) {
+      setToggleLogout(false);
+    } else {
+      setToggleLogout(true);
+    };
+  };
+
+  const handleToggleLogin = () => {
+    if (toggleLogin) {
+      setToggleLogin(false);
+    } else {
+      setToggleLogin(true);
+    };
   };
 
   useEffect(() => {
