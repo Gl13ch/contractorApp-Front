@@ -8,15 +8,19 @@ const Signup = ({handleSignup}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState([]);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false)
 
     const signUpRequest = (event) => {
         event.preventDefault();
         let newUser = {
             email: email,
             password: password,
-            address: address,
-            phone: phone
+            phone: phone,
+            firstName: firstName,
+            lastName: lastName,
+            isAdmin: isAdmin
         };
         handleSignup(newUser);
     };

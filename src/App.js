@@ -150,7 +150,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Header/>
+      <Header currUser={currUser}/>
 	    <Signup handleSignup={handleSignup}/>
       <br />
 	    <Login handleLogin={handleLogin}/>
