@@ -33,6 +33,7 @@ const Header = ({handleToggleLogin, currUser, setCurrUser, toggleLogin, handleLo
                         <h2>Welcome, {currUser.email}</h2>
                     </div>
                     <button onClick={handleLogout}>Logout</button>
+                    
                     <Link to='/user'>User Page</Link>
                 </>
             :

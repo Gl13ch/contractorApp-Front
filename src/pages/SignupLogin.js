@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 import axios from 'axios';
@@ -7,6 +8,7 @@ const SignupLogin = ({currUser, setCurrUser, handleLogout}) => {
     const [toggleLogin, setToggleLogin] = useState(true);
     const [toggleError, setToggleError] = useState(false);
 	const [errorMsg, setErrorMsg] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = (userObj) => {
 		axios.put('http://localhost:8000/users/login', userObj)
@@ -16,6 +18,7 @@ const SignupLogin = ({currUser, setCurrUser, handleLogout}) => {
 				setToggleError(false);
 				setErrorMsg('');
 				setCurrUser(res.data);
+                navigate('/')
 			} else {
 				console.log('error', res.data);
 				setErrorMsg(res.data);

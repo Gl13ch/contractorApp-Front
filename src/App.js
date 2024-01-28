@@ -101,7 +101,7 @@ const App = () => {
     <BrowserRouter>
     	<Header
         /* handleLogin={handleLogin} toggleLogout={toggleLogout}handleToggleLogout={handleToggleLogout} handleLogout={handleLogout} handleToggleLogin={handleToggleLogin} handleSignup={handleSignup} toggleError={toggleError}
-        errorMsg={errorMsg}*/toggleLogin={toggleLogin} currUser={currUser}/>
+        errorMsg={errorMsg}*/toggleLogin={toggleLogin} currUser={currUser} setCurrUser={setCurrUser}/>
 	    {/* <Signup handleSignup={handleSignup}/>
       	<br />
 	    <Login handleLogin={handleLogin}/>
