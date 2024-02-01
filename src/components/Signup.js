@@ -10,31 +10,43 @@ const Signup = ({handleSignup}) => {
     const [phone, setPhone] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false);
 
-    const signUpRequest = (event) => {
-        event.preventDefault();
+    const signUpRequest = (e) => {
+        e.preventDefault();
         let newUser = {
             email: email,
             password: password,
             phone: phone,
-            firstName: firstName,
-            lastName: lastName,
-            isAdmin: isAdmin
+            first_name: firstName,
+            last_name: lastName,
+            is_admin: isAdmin
         };
         handleSignup(newUser);
     };
 
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
     };
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
     };
 
     const handlePhoneChange = (e) => {
         setPhone(e.target.value);
+    };
+
+    const handleFirstNameChange = (e) => {
+        setFirstName(e.target.value);
+    };
+
+    const handleLastNameChange = (e) => {
+        setLastName(e.target.value);
+    };
+
+    const handleAdminChange = (e) => {
+        setIsAdmin(e.target.value);
     };
 
     return (
@@ -50,10 +62,19 @@ const Signup = ({handleSignup}) => {
                 <label htmlFor='phone'>Phone:</label>
                 <input type='phone' name='phone' onChange={handlePhoneChange}/>
                 <br />
+                <label htmlFor='firstName'>First Name:</label>
+                <input type='firstName' name='firstName' onChange={handleFirstNameChange}/>
+                <br />
+                <label htmlFor='lastName'>Last Name:</label>
+                <input type='lastName' name='lastName' onChange={handleLastNameChange}/>
+                <br />
+                <label htmlFor='isAdmin'>Admin:</label>
+                <input type='checkbox' name='isAdmin' onChange={handleAdminChange}/>
+                <br />
                 <input type='submit'/>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default Signup;
