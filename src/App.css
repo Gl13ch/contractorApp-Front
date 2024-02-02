@@ -1,12 +1,12 @@
-.test {
-  background-color:rgb(60,60,60);
-  margin-bottom: 1em;
-}
-
-* {
+/* * {
   background-color:rgb(40,40,40);
   color: rgb(200,200,200);
-}
+} */
+
+/* .test {
+  background-color:rgb(60,60,60);
+  margin-bottom: 1em;
+} */
 
 form-popup {
   display:none

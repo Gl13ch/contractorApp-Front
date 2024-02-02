@@ -1,0 +1,17 @@
+img {
+    width: 225px;
+    height: 225px;
+}
+
+.headerContainer{
+    padding: 60px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.linkContainer{
+    float: right;
+}

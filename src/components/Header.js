@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Login from '../components/Login.js';
 import Signup from '../components/Signup.js';
+import '../views/header.css';
 
 const Header = ({handleToggleLogin, currUser, setCurrUser, toggleLogin, handleLogin, handleSignup}) => {
 
@@ -9,7 +10,6 @@ const Header = ({handleToggleLogin, currUser, setCurrUser, toggleLogin, handleLo
     
     const handleLogout = () => {
         setCurrUser({});
-        console.log(currUser);
         handleToggleLogout();
     };
 
@@ -22,25 +22,34 @@ const Header = ({handleToggleLogin, currUser, setCurrUser, toggleLogin, handleLo
     };
 
     return(
-        <div className="header">
-            <Link id='home' to='/'><img src="../public/images/ICON.png" alt="NLR Remodeling Logo"/></Link>
-
-            <a href="#contact_us">Contact Us</a>
-
-            {currUser.email ?
-                <>
-                    <div>
-                        <h2>Welcome, {currUser.email}</h2>
-                    </div>
-                    <button onClick={handleLogout}>Logout</button>
-                    
-                    <Link to='/user'>User Page</Link>
-                </>
-            :
-                <>
-                    <Link to='/signup'>Signup</Link>
-                </> 
-            }
+        <div className="headerContainer">
+            <div className='imageContainer'>
+                <Link id='home' to='/'><img src={require('../images/nlrLogoCircle.png')} alt="NLR Remodeling Logo"/></Link>
+            </div>
+            <div className='linkContainer'>
+                <Link to='/'>Home </Link>
+                {currUser.email ?
+                    <>
+                        <div>
+                            <h2>Welcome, {currUser.email}</h2>
+                        </div>
+                        <Link to='/' onClick={handleLogout}>Logout</Link>
+                        <br />
+                    </>
+                    :   
+                    <Link to='/login'>Login </Link>
+                }
+                    <a href="#contact_us">Contact Us </a>
+                {currUser.email ?
+                    <>
+                        <Link to='/user'>User Page</Link>
+                        <Link>Job Board </Link>
+                        <Link>Punch List </Link>
+                        <Link to='/settings'>Settings </Link>
+                    </>
+                    :<></>
+                }
+            </div>
 
             {/* LOGGED OUT */}
             {/* Login */}

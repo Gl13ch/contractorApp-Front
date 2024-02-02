@@ -1,0 +1,8 @@
+.pageContainer{
+    position: relative;
+    min-height: 100vh;
+}
+
+.footerContainer{
+    position: absolute;
+}
