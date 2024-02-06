@@ -27,7 +27,7 @@ const LoginPage = ({setCurrUser}) => {
 
     return(
         <div className='pageContainer'>
-            <Login handleLogin={handleLogin}/>
+            <Login handleLogin={handleLogin} errorMsg={errorMsg}/>
         </div>
     )
 }

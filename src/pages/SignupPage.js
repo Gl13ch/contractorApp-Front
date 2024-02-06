@@ -29,7 +29,7 @@ const SignupPage = ({setCurrUser}) => {
 
     return(
         <div className='pageContainer'>
-            <Signup handleSignup={handleSignup}/>
+            <Signup handleSignup={handleSignup} errorMsg={errorMsg}/>
         </div>
     )
 }

@@ -24,7 +24,7 @@ const Header = ({handleToggleLogin, currUser, setCurrUser, toggleLogin, handleLo
     return(
         <div className="headerContainer">
             <div className='imageContainer'>
-                <Link id='home' to='/'><img src={require('../images/nlrLogoCircle.png')} alt="NLR Remodeling Logo"/></Link>
+                <Link id='home' to='/'><img id='nlrLogo' src={require('../images/nlrLogoCircle.png')} alt="NLR Remodeling Logo"/></Link>
             </div>
             <div className='linkContainer'>
                 <Link to='/'>Home </Link>

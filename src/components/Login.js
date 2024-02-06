@@ -28,13 +28,13 @@ const Login = ({handleLogin, toggleError, errorMsg}) => {
     return (
         <div>
             <h1>Login</h1>
+            <div>{errorMsg.error}</div>
             <form onSubmit={loginRequest}>
                 <label htmlFor='email'>Email: </label>
                 <input type='text' name='email' onChange={handleEmailChange}/>
                 <label htmlFor='password'>Password: </label>
                 <input type='password' name='password' onChange={handlePasswordChange}/>
                 <input type='submit'/>
-                {toggleError && <h5>{errorMsg}</h5>}
             </form>
         </div>
     )

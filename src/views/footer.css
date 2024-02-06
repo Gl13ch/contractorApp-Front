@@ -5,4 +5,14 @@
 
 .footerContainer{
     position: absolute;
+    width: 100%;
+}
+
+.logosContainer {
+    float: right;
+}
+
+.socialMediaLogos{
+    width: 20px;
+    height: 20px;
 }

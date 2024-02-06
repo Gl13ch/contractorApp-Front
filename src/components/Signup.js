@@ -1,10 +1,7 @@
 import {useState} from 'react';
 import axios from 'axios';
 
-const Signup = ({handleSignup}) => {
-    const [toggleError, setToggleError] = useState(false);
-    const [errorMsg, setErrorMsg] = useState('');
-    const [currUser, setCurrUser] = useState({});
+const Signup = ({handleSignup, errorMsg}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
@@ -52,6 +49,7 @@ const Signup = ({handleSignup}) => {
     return (
         <div>
             <h1>Sign Up</h1>
+            <div>{errorMsg.error}</div>
             <form onSubmit={signUpRequest}>
                 <label htmlFor='email'>Email: </label>
                 <input type='text' name='email' onChange={handleEmailChange}/>

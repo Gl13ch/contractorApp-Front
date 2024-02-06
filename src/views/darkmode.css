@@ -1,7 +1,7 @@
 .dark{
-    background-color: rgb(40,40,40);
-    color: rgb(200,200,200)
-  }
+  background-color: rgb(40,40,40);
+  color: rgb(200,200,200)
+}
 
 .dark .pageContainer{
   background-color: black;
