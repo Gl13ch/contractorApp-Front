@@ -2,7 +2,7 @@ import '../views/footer.css';
 
 const Footer = () => {
     return(
-        <div className='footerContainer'>
+        <footer className='footerContainer'>
             <a id='contact_us'></a>
             <div className='logosContainer'>
                 <b>Connect with us:</b>
@@ -23,7 +23,7 @@ const Footer = () => {
             <a href="tel:817-938-5217">(817)-938-5217</a>
             <br />
             <a href="mailto:nlrremodelinggc@gmail.com">nlrremodelinggc@gmail.com</a>
-        </div>
+        </footer>
     )
 }
 

@@ -1,6 +1,5 @@
 .headerContainer{
-    padding: 60px;
-    margin-bottom: 100px;
+    display: flex;
 }
 
 a{
@@ -9,10 +8,11 @@ a{
 }
 
 #nlrLogo {
-    width: 225px;
-    height: 225px;
+    width: 250px;
+    height: 250px;
 }
 
-.linkContainer{
+.linkContainer1{
     float: right;
 }
+

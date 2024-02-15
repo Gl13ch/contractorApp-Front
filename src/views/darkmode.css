@@ -7,6 +7,10 @@
   background-color: black;
 }
 
+.dark .footerContainer{
+  background-color: rgb(40,40,40);
+}
+
 .dark a {
   color: white;
 }

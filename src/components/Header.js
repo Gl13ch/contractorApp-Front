@@ -23,22 +23,25 @@ const Header = ({handleToggleLogin, currUser, setCurrUser, toggleLogin, handleLo
 
     return(
         <div className="headerContainer">
+            <div className='linkContainer1'>
+                    {currUser.email ?
+                        <>
+                            <div>
+                                <h2>Welcome, {currUser.email}</h2>
+                            </div>
+                            <Link to='/' onClick={handleLogout}>Logout</Link>
+                            <br />
+                        </>
+                        :   
+                        <Link to='/login'>Login </Link>
+                    }
+                </div>
             <div className='imageContainer'>
+                
                 <Link id='home' to='/'><img id='nlrLogo' src={require('../images/nlrLogoCircle.png')} alt="NLR Remodeling Logo"/></Link>
-            </div>
-            <div className='linkContainer'>
+
+                <div className='linkContainer2'>
                 <Link to='/'>Home </Link>
-                {currUser.email ?
-                    <>
-                        <div>
-                            <h2>Welcome, {currUser.email}</h2>
-                        </div>
-                        <Link to='/' onClick={handleLogout}>Logout</Link>
-                        <br />
-                    </>
-                    :   
-                    <Link to='/login'>Login </Link>
-                }
                     <a href="#contact_us">Contact Us </a>
                 {currUser.email ?
                     <>
@@ -50,6 +53,8 @@ const Header = ({handleToggleLogin, currUser, setCurrUser, toggleLogin, handleLo
                     :<></>
                 }
             </div>
+            </div>
+            
 
             {/* LOGGED OUT */}
             {/* Login */}
